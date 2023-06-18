@@ -6,8 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this -> setWindowTitle("开始");
-    this -> setFixedSize(600, 400);
+    setFixedWidth(500);
     ui -> buttonStart -> move((this -> width() - ui -> buttonStart -> width()) * 1 / 2,
                               (this -> height() - ui -> buttonStart -> height()) * 1 / 4);
 
