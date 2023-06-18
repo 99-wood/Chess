@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/board.svg</file>
+        <file>image/heishuai.svg</file>
+        <file>image/heijv.svg</file>
+        <file>image/heima.svg</file>
+        <file>image/heipao.svg</file>
+        <file>image/heishi.svg</file>
+        <file>image/heixiang.svg</file>
+        <file>image/heizu.svg</file>
+        <file>image/hongzu.svg</file>
+        <file>image/hongjv.svg</file>
+        <file>image/hongma.svg</file>
+        <file>image/hongpao.svg</file>
+        <file>image/hongshi.svg</file>
+        <file>image/hongshuai.svg</file>
+        <file>image/hongxiang.svg</file>
+        <file>image/kuang.svg</file>
+        <file>image/point.svg</file>
+    </qresource>
+</RCC>
