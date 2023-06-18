@@ -7,10 +7,10 @@ Board::Board(QWidget *parent) :
 {
     ui->setupUi(this);
     QPalette tmp = this -> palette();
-    tmp.setBrush(QPalette::Background, QBrush(QPixmap("://image/board.svg").scaled(
-                                                  this -> size(),
+    tmp.setBrush(QPalette::Background, QPixmap("://image/board.svg").scaled(
+                                                  size(),
                                                   Qt::IgnoreAspectRatio,
-                                                  Qt::SmoothTransformation)));
+                                                  Qt::SmoothTransformation));
     setPalette(tmp);
     zi.push_back(new Zi(this, black, jv, 1, 1));
     zi.push_back(new Zi(this, black, jv, 9, 1));
@@ -95,6 +95,7 @@ void Board::SelectZi(Zi *zi)
             int nx = x + i, ny = y;
             if(IfLegalMove(selectedZi, nx, ny)){
                 legalPoint.push_back(new LegalPoint(this, nx, ny));
+                if(GetZi(nx, ny) != nullptr) break;
             }
             else break;
         }
@@ -102,6 +103,7 @@ void Board::SelectZi(Zi *zi)
             int nx = x - i, ny = y;
             if(IfLegalMove(selectedZi, nx, ny)){
                 legalPoint.push_back(new LegalPoint(this, nx, ny));
+                if(GetZi(nx, ny) != nullptr) break;
             }
             else break;
         }
@@ -109,6 +111,7 @@ void Board::SelectZi(Zi *zi)
             int nx = x, ny = y + i;
             if(IfLegalMove(selectedZi, nx, ny)){
                 legalPoint.push_back(new LegalPoint(this, nx, ny));
+                if(GetZi(nx, ny) != nullptr) break;
             }
             else break;
         }
@@ -116,6 +119,7 @@ void Board::SelectZi(Zi *zi)
             int nx = x, ny = y - i;
             if(IfLegalMove(selectedZi, nx, ny)){
                 legalPoint.push_back(new LegalPoint(this, nx, ny));
+                if(GetZi(nx, ny) != nullptr) break;
             }
             else break;
         }

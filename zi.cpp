@@ -40,7 +40,7 @@ QString Zi::TransformName()
 
 void Zi::mouseReleaseEvent(QMouseEvent *event)
 {
-    if(!isSelected)emit Selected(this);
+    if(!isSelected) emit Selected(this);
     else emit UnSelected(this);
 }
 
@@ -55,7 +55,7 @@ Zi::Zi(QWidget *parent, const Contry &contry, const ArmType &armType, const int 
     Move(x, y);
     setAutoFillBackground(true);
     QPalette tmp = this -> palette();
-    tmp.setBrush(QPalette::Background, QBrush(QPixmap(TransformName()).scaled(
+    tmp.setBrush(QPalette::Window, QBrush(QPixmap(TransformName()).scaled(
                                                   this -> size(),
                                                   Qt::IgnoreAspectRatio,
                                                   Qt::SmoothTransformation)));

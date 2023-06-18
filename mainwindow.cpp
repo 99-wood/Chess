@@ -17,6 +17,11 @@ MainWindow::MainWindow(QWidget *parent)
         newPage -> setAttribute(Qt::WA_DeleteOnClose);
         newPage -> show();
     });
+
+    QPalette pal = palette();
+    pal.setBrush(QPalette::Window, QPixmap("://image/board.svg").scaled(size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    setPalette(pal);
+    setAutoFillBackground(true);
 }
 
 MainWindow::~MainWindow()
