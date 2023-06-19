@@ -20,18 +20,21 @@ SOURCES += \
     legalpoint.cpp \
     main.cpp \
     mainwindow.cpp \
+    reproduce.cpp \
     zi.cpp
 
 HEADERS += \
     board.h \
     legalpoint.h \
     mainwindow.h \
+    reproduce.h \
     zi.h
 
 FORMS += \
     board.ui \
     legalpoint.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    reproduce.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

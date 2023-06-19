@@ -4,7 +4,11 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QWidget>
+#include <QPainter>
+#include <QSize>
+#include <QPixmap>
 #include "board.h"
+#include "reproduce.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +21,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    virtual void paintEvent(QPaintEvent *event);
 
 private:
     Ui::MainWindow *ui;

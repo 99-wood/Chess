@@ -8,7 +8,8 @@
 #include <QMessageBox>
 #include <QVector>
 #include <QDebug>
-#include <QMessageBox>
+#include <QFile>
+#include <QFileDialog>
 #include "zi.h"
 #include "legalpoint.h"
 
@@ -20,20 +21,26 @@ class Board : public QWidget
 {
     Q_OBJECT
 
-public:
-    explicit Board(QWidget *parent = nullptr);
-    ~Board();
-
 private:
     Ui::Board *ui;
-//    const int chessSize = 40;
     const int posx[10] = {0, 40, 120, 200, 280, 360, 440, 520, 600, 680},
         posy[11] = {0, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840};
     QVector<Zi*> zi;
     QVector<LegalPoint*> legalPoint;
     Zi *selectedZi = nullptr;
+    QFile tmpFile;
+    int con = 1;
+    bool enableMove = true;
     Zi* GetZi(int x, int y);
     bool IfLegalMove(Zi* zi, int x, int y);
+    int GetId(Zi *zi);
+
+public:
+    explicit Board(QWidget *parent = nullptr);
+    ~Board();
+    void SetEnableMove(bool flag);
+    Zi* GetZiAddress(int a);
+    LegalPoint* GetLegalPointAddress(int x, int y);
 
 public slots:
     void SelectZi(Zi* zi);

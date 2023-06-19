@@ -39,6 +39,7 @@ signals:
 public slots:
     void Move(const int &x, const int &y);
     void BeDead();
+    void BeAlive();
     void CancelSelected();
 };
 

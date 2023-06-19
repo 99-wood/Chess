@@ -112,6 +112,12 @@ void Zi::BeDead()
     close();
 }
 
+void Zi::BeAlive()
+{
+    alive = true;
+    show();
+}
+
 void Zi::CancelSelected()
 {
     delete kuang;

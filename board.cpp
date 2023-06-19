@@ -6,12 +6,16 @@ Board::Board(QWidget *parent) :
     ui(new Ui::Board)
 {
     ui->setupUi(this);
+    setAutoFillBackground(true);
     QPalette tmp = this -> palette();
     tmp.setBrush(QPalette::Background, QPixmap("://image/board.svg").scaled(
                                                   size(),
                                                   Qt::IgnoreAspectRatio,
                                                   Qt::SmoothTransformation));
     setPalette(tmp);
+    tmpFile.setFileName("tmpfile.ccd");
+    tmpFile.open(QIODevice::WriteOnly);
+    tmpFile.close();
     zi.push_back(new Zi(this, black, jv, 1, 1));
     zi.push_back(new Zi(this, black, jv, 9, 1));
     zi.push_back(new Zi(this, black, ma, 2, 1));
@@ -76,6 +80,32 @@ bool Board::IfLegalMove(Zi *zi, int x, int y)
     if(x < 1 || x > 9 || y < 1 || y > 10 ||
             (GetZi(x, y) != nullptr && GetZi(x, y) -> GetCountry() == zi -> GetCountry())) return false;
     return true;
+}
+
+int Board::GetId(Zi *z)
+{
+    for(int i = 0; i < zi.size(); ++i){
+        if(zi[i] == z) return i;
+    }
+    return -1;
+}
+
+void Board::SetEnableMove(bool flag)
+{
+    enableMove = flag;
+}
+
+Zi *Board::GetZiAddress(int a)
+{
+    return zi[a];
+}
+
+LegalPoint *Board::GetLegalPointAddress(int x, int y)
+{
+    for(int i = 0; i < legalPoint.size(); ++i){
+        if(legalPoint[i] -> Getx() == x && legalPoint[i] -> Gety() == y) return legalPoint[i];
+    }
+    return nullptr;
 }
 
 void Board::SelectZi(Zi *zi)
@@ -257,6 +287,7 @@ void Board::SelectZi(Zi *zi)
         break;
     }
     for(int i = 0; i < legalPoint.size(); ++i){
+        legalPoint[i] -> setEnableClick(enableMove);
         connect(legalPoint[i], &LegalPoint::Selected, this, &Board::MoveZi);
     }
 }
@@ -274,20 +305,40 @@ void Board::UnSelectZi(Zi *zi)
 
 void Board::MoveZi(LegalPoint *id)
 {
+    tmpFile.open(QIODevice::Append);
+    tmpFile.write(QString("%1\n").arg(con++).toUtf8());
     Zi *zi = GetZi(id -> Getx(), id -> Gety());
-    if(zi != nullptr) zi -> BeDead();
+    int ziId = GetId(zi), selectedZiId = GetId(selectedZi);
+    if(zi != nullptr){
+        zi -> BeDead();
+        tmpFile.write(QString("100 %1\n").arg(ziId).toUtf8());
+    }
     selectedZi -> Move(id -> Getx(), id -> Gety());
+    tmpFile.write(QString("101 %1 %2 %3\n\n").arg(selectedZiId).arg(id -> Getx()).arg(id -> Gety()).toUtf8());
+    tmpFile.close();
     UnSelectZi(selectedZi);
     if(zi != nullptr && zi -> GetArmType() == shuai){
         if(zi -> GetCountry() == red){
-            QMessageBox MyBox(QMessageBox::NoIcon,"结果","黑方胜",QMessageBox::Yes|QMessageBox::No);
+            QMessageBox MyBox(QMessageBox::NoIcon,"结果","黑方胜，是否保存对局？",QMessageBox::Yes|QMessageBox::No);
             MyBox.setIconPixmap(QPixmap("://image/heixiang.svg"));
             MyBox.exec();
+            if(MyBox.standardButton(MyBox.clickedButton()) == QMessageBox::Yes){
+                QString path = QFileDialog::getSaveFileName(this, "保存为", "/", "Chinese Chess Data, ccd(*.ccd)");
+                if(path != ""){
+                    if(QFile::exists(path)) QFile::remove(path);
+                    tmpFile.copy(path);
+                }
+            }
         }
         else{
-            QMessageBox MyBox(QMessageBox::NoIcon,"结果","红方胜",QMessageBox::Yes|QMessageBox::No);
+            QMessageBox MyBox(QMessageBox::NoIcon,"结果","红方胜，是否保存对局？",QMessageBox::Yes|QMessageBox::No);
             MyBox.setIconPixmap(QPixmap("://image/hongxiang.svg"));
             MyBox.exec();
+            QString path = QFileDialog::getSaveFileName(this, "保存为", "/", "中国象棋对局文件(*.ccd)");
+            if(path != ""){
+                if(QFile::exists(path)) QFile::remove(path);
+                tmpFile.copy(path);
+            }
         }
 
     }

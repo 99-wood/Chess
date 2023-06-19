@@ -10,7 +10,8 @@ class LegalPoint;
 class LegalPoint : public QWidget
 {
     Q_OBJECT
-    int chessSize = 80;
+    const int chessSize = 80;
+    bool enableClick = true;
 
 protected:
 //    void mousePressEvent(QMouseEvent *event);
@@ -22,6 +23,7 @@ public:
     void Move(const int &x, const int &y);
     int Getx();
     int Gety();
+    void setEnableClick(bool flag);
 private:
     Ui::LegalPoint *ui;
 

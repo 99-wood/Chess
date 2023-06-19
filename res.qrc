@@ -17,5 +17,8 @@
         <file>image/hongxiang.svg</file>
         <file>image/kuang.svg</file>
         <file>image/point.svg</file>
+        <file>image/play_chess.jpg</file>
+        <file>image/play_chess_fixed.png</file>
+        <file>image/play_chess_fixed_2.png</file>
     </qresource>
 </RCC>

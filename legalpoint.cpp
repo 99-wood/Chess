@@ -3,7 +3,7 @@
 
 void LegalPoint::mouseReleaseEvent(QMouseEvent *event)
 {
-    emit Selected(this);
+    if(enableClick)emit Selected(this);
 }
 
 LegalPoint::LegalPoint(QWidget *parent) :
@@ -54,4 +54,9 @@ int LegalPoint::Getx()
 int LegalPoint::Gety()
 {
     return (this -> pos().y() + chessSize / 2 - 40) / 80;
+}
+
+void LegalPoint::setEnableClick(bool flag)
+{
+    enableClick = flag;
 }
