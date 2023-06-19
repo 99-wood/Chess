@@ -40,6 +40,7 @@ QString Zi::TransformName()
 
 void Zi::mouseReleaseEvent(QMouseEvent *event)
 {
+    if(!enableSelect) return;
     if(!isSelected) emit Selected(this);
     else emit UnSelected(this);
 }
@@ -89,6 +90,11 @@ int Zi::Getx()
 int Zi::Gety()
 {
     return (this -> pos().y() + chessSize / 2 - 40) / 80;
+}
+
+void Zi::setEnableSelect(bool flag)
+{
+    enableSelect = flag;
 }
 
 Contry Zi::GetCountry()

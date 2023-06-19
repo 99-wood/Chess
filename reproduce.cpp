@@ -6,7 +6,7 @@ Reproduce::Reproduce(QWidget *parent) :
     ui(new Ui::Reproduce)
 {
     ui->setupUi(this);
-    ui -> board -> SetEnableMove(false);
+    ui -> board -> SetEnableUse(false);
     QString path = QFileDialog::getOpenFileName(this, "选择要复盘的对局文件（ccd）", "/", "中国象棋对局文件(*.ccd)");
     if(!QFile::exists(path)){
         QMessageBox::warning(this, "错误", "路径无效，请重新选择", QMessageBox::Yes);

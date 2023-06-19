@@ -90,9 +90,12 @@ int Board::GetId(Zi *z)
     return -1;
 }
 
-void Board::SetEnableMove(bool flag)
+void Board::SetEnableUse(bool flag)
 {
-    enableMove = flag;
+    enableUse = flag;
+    for(int i = 0; i < zi.size(); ++i){
+        zi[i] -> setEnableSelect(flag);
+    }
 }
 
 Zi *Board::GetZiAddress(int a)
@@ -287,7 +290,7 @@ void Board::SelectZi(Zi *zi)
         break;
     }
     for(int i = 0; i < legalPoint.size(); ++i){
-        legalPoint[i] -> setEnableClick(enableMove);
+        legalPoint[i] -> setEnableClick(enableUse);
         connect(legalPoint[i], &LegalPoint::Selected, this, &Board::MoveZi);
     }
 }
@@ -334,12 +337,13 @@ void Board::MoveZi(LegalPoint *id)
             QMessageBox MyBox(QMessageBox::NoIcon,"结果","红方胜，是否保存对局？",QMessageBox::Yes|QMessageBox::No);
             MyBox.setIconPixmap(QPixmap("://image/hongxiang.svg"));
             MyBox.exec();
-            QString path = QFileDialog::getSaveFileName(this, "保存为", "/", "中国象棋对局文件(*.ccd)");
-            if(path != ""){
-                if(QFile::exists(path)) QFile::remove(path);
-                tmpFile.copy(path);
+            if(MyBox.standardButton(MyBox.clickedButton()) == QMessageBox::Yes){
+                QString path = QFileDialog::getSaveFileName(this, "保存为", "/", "Chinese Chess Data, ccd(*.ccd)");
+                if(path != ""){
+                    if(QFile::exists(path)) QFile::remove(path);
+                    tmpFile.copy(path);
+                }
             }
         }
-
     }
 }

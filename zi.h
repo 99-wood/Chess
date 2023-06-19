@@ -16,7 +16,7 @@ class Zi : public QWidget
     Contry contry;      //阵营
     ArmType armType;    //兵种
     int x, y;
-    bool isSelected = false, alive = true;
+    bool isSelected = false, alive = true, enableSelect = true;
     const int chessSize = 80;
     QWidget *kuang = nullptr;
     QString TransformName();
@@ -32,6 +32,8 @@ public:
     bool GetAlive();
     int Getx();
     int Gety();
+    void setEnableSelect(bool flag);
+
 signals:
     void Selected(Zi *id);
     void UnSelected(Zi *id);

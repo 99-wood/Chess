@@ -30,7 +30,7 @@ private:
     Zi *selectedZi = nullptr;
     QFile tmpFile;
     int con = 1;
-    bool enableMove = true;
+    bool enableUse = true;
     Zi* GetZi(int x, int y);
     bool IfLegalMove(Zi* zi, int x, int y);
     int GetId(Zi *zi);
@@ -38,7 +38,7 @@ private:
 public:
     explicit Board(QWidget *parent = nullptr);
     ~Board();
-    void SetEnableMove(bool flag);
+    void SetEnableUse(bool flag);
     Zi* GetZiAddress(int a);
     LegalPoint* GetLegalPointAddress(int x, int y);
 
