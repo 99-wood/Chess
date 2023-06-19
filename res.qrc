@@ -20,5 +20,6 @@
         <file>image/play_chess.jpg</file>
         <file>image/play_chess_fixed.png</file>
         <file>image/play_chess_fixed_2.png</file>
+        <file>font/HuJingLiMaoBiXingShuFan-1.ttf</file>
     </qresource>
 </RCC>
