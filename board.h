@@ -23,6 +23,7 @@ class Board : public QWidget
 
 private:
     Ui::Board *ui;
+    bool redFirst = true;
     const int posx[10] = {0, 40, 120, 200, 280, 360, 440, 520, 600, 680},
         posy[11] = {0, 120, 200, 280, 360, 440, 520, 600, 680, 760, 840};
     QVector<Zi*> zi;
@@ -34,6 +35,7 @@ private:
     Zi* GetZi(int x, int y);
     bool IfLegalMove(Zi* zi, int x, int y);
     int GetId(Zi *zi);
+    void setFirst(Country c);
 
 public:
     explicit Board(QWidget *parent = nullptr);

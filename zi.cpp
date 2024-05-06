@@ -3,7 +3,7 @@
 QString Zi::TransformName()
 {
     QString ans = "://image/";
-    switch (contry) {
+    switch (country) {
     case black:
         ans += "hei";
         break;
@@ -50,8 +50,8 @@ Zi::Zi(QWidget *parent) : QWidget(parent)
 
 }
 
-Zi::Zi(QWidget *parent, const Contry &contry, const ArmType &armType, const int &x, const int &y)
-    : QWidget(parent), contry(contry), armType(armType), x(x), y(y)
+Zi::Zi(QWidget *parent, const Country &country, const ArmType &armType, const int &x, const int &y)
+    : QWidget(parent), country(country), armType(armType), x(x), y(y)
 {
     Move(x, y);
     setAutoFillBackground(true);
@@ -97,9 +97,9 @@ void Zi::setEnableSelect(bool flag)
     enableSelect = flag;
 }
 
-Contry Zi::GetCountry()
+Country Zi::GetCountry()
 {
-    return contry;
+    return country;
 }
 
 ArmType Zi::GetArmType()

@@ -49,6 +49,7 @@ Board::Board(QWidget *parent) :
     zi.push_back(new Zi(this, red, zu, 7, 7));
     zi.push_back(new Zi(this, red, zu, 9, 7));
     zi.push_back(new Zi(this, red, shuai, 5, 10));
+    setFirst(red);
     for(int i = 0; i < zi.size(); ++i){
         connect(zi[i], &Zi::Selected, this, &Board::SelectZi);
         connect(zi[i], &Zi::UnSelected, this, &Board::UnSelectZi);
@@ -88,6 +89,18 @@ int Board::GetId(Zi *z)
         if(zi[i] == z) return i;
     }
     return -1;
+}
+
+void Board::setFirst(Country c)
+{
+    for(int i = 0; i < zi.size(); ++i){
+        if(zi[i]->GetCountry() == c){
+            zi[i]->setEnableSelect(true);
+        }
+        else{
+            zi[i]->setEnableSelect(false);
+        }
+    }
 }
 
 void Board::SetEnableUse(bool flag)
@@ -319,6 +332,7 @@ void Board::MoveZi(LegalPoint *id)
     selectedZi -> Move(id -> Getx(), id -> Gety());
     tmpFile.write(QString("101 %1 %2 %3\n\n").arg(selectedZiId).arg(id -> Getx()).arg(id -> Gety()).toUtf8());
     tmpFile.close();
+    setFirst(selectedZi->GetCountry() == red ? black : red);
     UnSelectZi(selectedZi);
     if(zi != nullptr && zi -> GetArmType() == shuai){
         if(zi -> GetCountry() == red){

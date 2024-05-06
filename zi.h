@@ -9,11 +9,11 @@
 #include <QPoint>
 
 enum ArmType{shuai, jv, ma, pao, shi, xiang, zu};
-enum Contry {black, red};
+enum Country {black, red};
 class Zi : public QWidget
 {
     Q_OBJECT
-    Contry contry;      //阵营
+    Country country;      //阵营
     ArmType armType;    //兵种
     int x, y;
     bool isSelected = false, alive = true, enableSelect = true;
@@ -25,9 +25,9 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
 public:
     explicit Zi(QWidget *parent = nullptr);
-    explicit Zi(QWidget *parent = nullptr, const Contry &contry = red,
+    explicit Zi(QWidget *parent = nullptr, const enum Country &Country = red,
                 const ArmType &armType = shuai, const int &x = 0, const int &y = 0);
-    Contry GetCountry();
+    enum Country GetCountry();
     ArmType GetArmType();
     bool GetAlive();
     int Getx();
